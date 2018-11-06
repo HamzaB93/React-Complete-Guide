@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person'
-import person from './Person/Person';
+import Person from './Person/Person';
 
 class App extends Component {
   state = {
@@ -9,11 +8,20 @@ class App extends Component {
       { name: 'Hamza', age: 24 },
       { name: 'Max', age: 28 },
       { name: 'Bruno', age: 26 }
-    ]
+    ],
+    otherState: 'Some other value'
   }
 
   switchNameHandler = () => {
-    console.log('Was Clicked!');
+    //console.log('Was Clicked!');
+    // DONT DO THIS: this.state.persons[0].name = "Hamza Bhatti"
+    this.setState({
+      persons: [
+        { name: 'Hamza Bhatti', age: 24 },
+        { name: 'Max', age: 28 },
+        { name: 'Bruno', age: 30 }
+      ] 
+    })
   }
 
   render() {
@@ -24,6 +32,9 @@ class App extends Component {
         <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>        
         <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>My Hobbies: Racing</Person>
         <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+        <hr/>
+        <p>{this.state.otherState}</p>
+
       </div>      
     );
     //return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?' ))
