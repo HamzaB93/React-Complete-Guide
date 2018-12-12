@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Radium from 'radium';
 import Person from './Person/Person';
 import Validation from './Validation/Validation';
 import Char from './Char/Char';
@@ -65,7 +66,11 @@ class App extends Component {
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer' 
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      } 
     };
 
     let persons = null;
@@ -92,6 +97,10 @@ class App extends Component {
         </div> 
       );
       style.backgroundColor = 'red';
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      } 
     }
 
     let classes = [];
@@ -112,9 +121,9 @@ class App extends Component {
           onClick={this.togglePersonsHandler}>Toggle Persons
         </button>   
         {persons}
+        
+        
         <hr/>
-
-
         <input type="text" onChange={this.inputChangedHandler} value={this.state.userInput}/>
         <p>{this.state.userInput}</p>
 
@@ -126,4 +135,4 @@ class App extends Component {
     );
   }
 }
-export default App;
+export default Radium(App);
