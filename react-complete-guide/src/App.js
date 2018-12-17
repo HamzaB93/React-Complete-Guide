@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
 import Validation from './Validation/Validation';
 import Char from './Char/Char';
@@ -67,10 +66,6 @@ class App extends Component {
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      } 
     };
 
     let persons = null;
@@ -113,7 +108,6 @@ class App extends Component {
 
 
     return (
-      <StyleRoot>
         <div className="App">
           <h1>Hi, I'm a React App!</h1>
           <p className={classes.join(' ')}>This is really working!</p>
@@ -122,19 +116,18 @@ class App extends Component {
             onClick={this.togglePersonsHandler}>Toggle Persons
           </button>   
           {persons}
-        </div>
 
+          
+          <hr/>
+          <input type="text" onChange={this.inputChangedHandler} value={this.state.userInput}/>
+          <p>{this.state.userInput}</p>
 
-        <hr/>
-        <input type="text" onChange={this.inputChangedHandler} value={this.state.userInput}/>
-        <p>{this.state.userInput}</p>
-
-        <Validation 
-          textLength= {this.state.userInputLength}/>
-        
-        {charList}
-      </StyleRoot>       
+          <Validation 
+            textLength= {this.state.userInputLength}/>
+          
+          {charList}
+        </div>     
     );
   }
 }
-export default Radium(App);
+export default App;
