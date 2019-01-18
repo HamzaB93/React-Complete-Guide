@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import classes from './App.css';
 import Person from './Person/Person';
-import Validation from './Validation/Validation';
-import Char from './Char/Char';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
   state = {
@@ -63,25 +60,16 @@ class App extends Component {
     let persons = null;
     let btnClass = '';
 
-    const charList = this.state.userInput.split('').map((char, index) => {
-      return <Char 
-        character={char} 
-        key={index}
-        clicked={() => this.deleteCharHanddler(index)}/>;
-    });
-
-
     if(this.state.showPersons) {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {        
-          return <ErrorBoundary key={person.id}>              
-              <Person
-                click={() => this.deletePerson(index)} 
-                name={person.name} 
-                age={person.age}                
-                changed={(event) => this.nameChangedHandeler(event, person.id)}/>
-            </ErrorBoundary>
+            return <Person
+              click={() => this.deletePerson(index)} 
+              name={person.name} 
+              age={person.age}
+              key={person.id}
+              changed={(event) => this.nameChangedHandeler(event, person.id)}/>
           })}
         </div> 
       );
@@ -105,16 +93,6 @@ class App extends Component {
             onClick={this.togglePersonsHandler}>Toggle Persons
           </button>   
           {persons}
-
-          
-          <hr/>
-          <input type="text" onChange={this.inputChangedHandler} value={this.state.userInput}/>
-          <p>{this.state.userInput}</p>
-
-          <Validation 
-            textLength= {this.state.userInputLength}/>
-          
-          {charList}
         </div>     
     );
   }
