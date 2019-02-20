@@ -3,17 +3,59 @@ import classes from './App.css';
 import Persons from '../Components/Persons/Persons';
 import Cockpit from '../Components/Cockpit/Cockpit';
 
+// react-vis
+const API_URL = "https://nataliia-radina.github.io/react-vis-example/";
+
 class App extends Component {
-  state = {
-    persons: [
-      { id: 'abdfsfd', name: 'Hamza', age: 24 },
-      { id: 'dfsdfdsf', name: 'Max', age: 28 },
-      { id: 'ajghjhjgm', name: 'Bruno', age: 26 }
-    ],
-    showPersons: false,
-    userInput: '',
-    userInputLength: null
+  
+  constructor(props) {
+    super(props);
+    console.log('[App.js] Inside Constructor ', props);
+    this.state = {
+      persons: [
+        { id: 'abdfsfd', name: 'Hamza', age: 24 },
+        { id: 'dfsdfdsf', name: 'Max', age: 28 },
+        { id: 'ajghjhjgm', name: 'Bruno', age: 26 }
+      ],
+      showPersons: false,
+
+      // for react-vis
+      results: []
+    }
   }
+
+  componentWillMount() {
+    console.log('[App.js] Inside componentWillMount()');
+  }
+
+  componentDidMount() {
+    console.log('[App.js] Inside componentDidMount()');
+
+    fetch(API_URL)
+    .then(response => {
+        if (response.ok) {
+            return  response.json()
+        }
+        else {
+            throw new Error ('something went wrong')
+        }
+    })
+    .then(response => this.setState({
+        results: response.results.filter((r)=>{
+                return r.name === 'JavaScript';
+            })
+        })
+    )
+  }
+
+  // state = {
+  //   persons: [
+  //     { id: 'abdfsfd', name: 'Hamza', age: 24 },
+  //     { id: 'dfsdfdsf', name: 'Max', age: 28 },
+  //     { id: 'ajghjhjgm', name: 'Bruno', age: 26 }
+  //   ],
+  //   showPersons: false
+  // }
 
   nameChangedHandeler = (event, id) =>{
     const personIndex = this.state.persons.findIndex(p => {
@@ -44,13 +86,13 @@ class App extends Component {
     this.setState({showPersons: !doesShow});
   }
 
-
   inputChangedHandler = (event) => {
     this.setState({userInput: event.target.value,
                     userInputLength: event.target.value.length});
   }
 
   render() {
+    console.log('[App.js] Inside render()')
     let persons = null;
 
     if(this.state.showPersons) {
