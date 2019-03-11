@@ -3,49 +3,28 @@ import classes from './App.css';
 import Persons from '../Components/Persons/Persons';
 import Cockpit from '../Components/Cockpit/Cockpit';
 
-// react-vis
-const API_URL = "https://nataliia-radina.github.io/react-vis-example/";
-
 class App extends Component {
-  
+
   constructor(props) {
     super(props);
-    console.log('[App.js] Inside Constructor ', props);
+    console.log('[App.js] constructor ', props);
     this.state = {
       persons: [
-        { id: 'abdfsfd', name: 'Hamza', age: 24 },
-        { id: 'dfsdfdsf', name: 'Max', age: 28 },
-        { id: 'ajghjhjgm', name: 'Bruno', age: 26 }
+        { id: '1', name: 'Hamza', age: 24 },
+        { id: '2', name: 'Max', age: 28 },
+        { id: '3', name: 'Bruno', age: 26 }
       ],
       showPersons: false,
-
-      // for react-vis
-      results: []
     }
   }
 
-  componentWillMount() {
-    console.log('[App.js] Inside componentWillMount()');
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
   }
 
   componentDidMount() {
-    console.log('[App.js] Inside componentDidMount()');
-
-    fetch(API_URL)
-    .then(response => {
-        if (response.ok) {
-            return  response.json()
-        }
-        else {
-            throw new Error ('something went wrong')
-        }
-    })
-    .then(response => this.setState({
-        results: response.results.filter((r)=>{
-                return r.name === 'JavaScript';
-            })
-        })
-    )
+    console.log('[App.js] componentDidMount ');
   }
 
   // state = {
@@ -92,11 +71,11 @@ class App extends Component {
   }
 
   render() {
-    console.log('[App.js] Inside render()')
+    console.log('[App.js] render')
     let persons = null;
 
     if(this.state.showPersons) {
-      persons = 
+      persons =
           <Persons
             persons={this.state.persons}
             clicked={this.deletePersonHandler}
@@ -104,15 +83,15 @@ class App extends Component {
     }
 
     return (
-        <div className={classes.App}> 
+        <div className={classes.App}>
           <Cockpit
-            appTitle={this.props.title} 
+            appTitle={this.props.title}
             showPersons={this.state.showPersons}
             persons={this.state.persons}
-            clicked={this.togglePersonsHandler}/>            
+            clicked={this.togglePersonsHandler}/>
 
           {persons}
-        </div>     
+        </div>
     );
   }
 }
