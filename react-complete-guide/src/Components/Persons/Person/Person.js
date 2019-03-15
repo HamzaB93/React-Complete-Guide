@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import classes from './Person.css';
 
-        
 class Person extends Component {
 
     render() {
@@ -16,8 +15,7 @@ class Person extends Component {
                     value={this.props.name}/>
             </div>            
         )
-    }
-    
+    }    
 }
 
 export default Person;
